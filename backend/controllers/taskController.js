@@ -29,11 +29,19 @@ exports.updateTaskStatus = async (req, res) => {
 // @desc    Get dashboard stats (Total, Pending, Overdue)
 exports.getDashboardStats = async (req, res) => {
     try {
+        const userId = req.user._id;
         let query = {};
 
-        
-        if (req.user.role !== 'Admin') {
-            query.assignedTo = req.user._id;
+        if (req.user.role === 'Admin') {
+            
+            const adminProjects = await Project.find({ owner: userId }).select('_id');
+            const projectIds = adminProjects.map(p => p._id);
+
+    
+            query.project = { $in: projectIds };
+        } else {
+            
+            query.assignedTo = userId;
         }
 
         const totalTasks = await Task.countDocuments(query);
