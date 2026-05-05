@@ -1,0 +1,358 @@
+@import 'variables';
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    background-color: $bg-light;
+
+    .dashboard-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        background: $white;
+        border-bottom: 1px solid #e2e8f0;
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: $primary-color;
+            letter-spacing: -0.5px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+
+            .user-info {
+                text-align: right;
+
+                strong {
+                    display: block;
+                    color: $secondary-color;
+                    font-size: 0.95rem;
+                }
+
+                span {
+                    color: $text-muted;
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+            }
+
+            .btn-logout {
+                background: #fee2e2;
+                color: $danger-color;
+                border: 1px solid #fecaca;
+                padding: 0.5rem 1.2rem;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: $danger-color;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .dashboard-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem;
+
+        // Stats ko horizontally align karne ke liye
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+
+            .card {
+                background: $white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: $shadow;
+                border-top: 4px solid #cbd5e1;
+
+                h3 {
+                    font-size: 0.85rem;
+                    color: $text-muted;
+                    margin-bottom: 0.5rem;
+                    text-transform: uppercase;
+                }
+
+                p {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: $secondary-color;
+                }
+
+                &.success {
+                    border-top-color: $success-color;
+                }
+
+                &.danger {
+                    border-top-color: $danger-color;
+                }
+            }
+        }
+
+        .welcome-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+
+            h1 {
+                font-size: 1.8rem;
+                color: $secondary-color;
+                margin-bottom: 0.3rem;
+            }
+
+            p {
+                color: $text-muted;
+            }
+
+            .btn-primary {
+                background: $primary-color;
+                color: white;
+                border: none;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+
+                &:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+                }
+            }
+        }
+    }
+}
+
+// No Projects Found styling
+.no-data {
+    text-align: center;
+    background: white;
+    padding: 4rem;
+    border-radius: 12px;
+    border: 2px dashed #cbd5e1;
+    color: $text-muted;
+    font-size: 1.1rem;
+}
+
+.project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+
+    .project-card {
+        background: $white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: $shadow;
+        border: 1px solid #e2e8f0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+
+            h3 {
+                font-size: 1.25rem;
+                color: $secondary-color;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            .role-badge {
+                padding: 0.25rem 0.75rem;
+                border-radius: 999px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                background: #f1f5f9;
+                color: $text-muted;
+
+                &.Admin {
+                    background: #dcfce7;
+                    color: #166534;
+                }
+
+                // Owner color
+                &.Member {
+                    background: #e0f2fe;
+                    color: #075985;
+                }
+            }
+        }
+
+        p {
+            color: $text-muted;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            min-height: 3rem; // Taaki cards ki height same rahe
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1.2rem;
+
+            .members-count {
+                font-size: 0.85rem;
+                color: $secondary-color;
+
+                strong {
+                    color: $primary-color;
+                }
+            }
+
+            .btn-view {
+                background: $secondary-color;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: lighten($secondary-color, 10%);
+                }
+            }
+        }
+    }
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.7); // Dark transparent background
+    backdrop-filter: blur(4px); // Glassmorphism effect
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; // Sabse upar dikhne ke liye
+    padding: 20px;
+}
+
+// Modal Box: Jahan form hoga
+.modal-content {
+    background: $white;
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s ease-out;
+
+    h2 {
+        margin-bottom: 1.5rem;
+        color: $secondary-color;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: $text-muted;
+            margin-bottom: -0.8rem;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 0.8rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+
+            &:focus {
+                border-color: $primary-color;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+
+            button {
+                flex: 1;
+                padding: 0.8rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                border: none;
+                transition: all 0.2s;
+            }
+
+            .save-btn {
+                background: $primary-color;
+                color: white;
+
+                &:hover {
+                    background: darken($primary-color, 10%);
+                }
+            }
+
+            .cancel-btn {
+                background: #f1f5f9;
+                color: $text-muted;
+
+                &:hover {
+                    background: #e2e8f0;
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
