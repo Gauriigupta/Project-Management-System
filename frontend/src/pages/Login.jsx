@@ -19,18 +19,36 @@ const Login = () => {
 
     return (
         <div className="auth-container">
+            <div className="brand-overlay">
+                <h1>Ethara.Al</h1>
+                <p>Welcome back to the research portal.</p>
+            </div>
+
             <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Login to TaskManager</h2>
+                <div className="form-title">
+                    <h2>Login</h2>
+                    <p>Enter your credentials to access your workspace.</p>
+                </div>
+
                 <input
-                    type="email" placeholder="Email" required
+                    type="email"
+                    placeholder="Email Address"
+                    required
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
+
                 <input
-                    type="password" placeholder="Password" required
+                    type="password"
+                    placeholder="Password"
+                    required
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />
-                <button type="submit">Login</button>
-                <p>Don't have an account? <Link to="/signup">Signup</Link></p>
+
+                <button type="submit" className="btn-submit">Sign In</button>
+
+                <p className="navigate-text">
+                    New here? <Link to="/signup" className="link-text">Create Account</Link>
+                </p>
             </form>
         </div>
     );
