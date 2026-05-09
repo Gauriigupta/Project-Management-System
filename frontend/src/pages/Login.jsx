@@ -4,16 +4,20 @@ import API from '../api';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const { data } = await API.post('/auth/login', formData);
             localStorage.setItem('userInfo', JSON.stringify(data));
             navigate('/dashboard');
         } catch (err) {
             alert(err.response?.data?.message || "Login Failed");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -35,6 +39,7 @@ const Login = () => {
                     placeholder="Email Address"
                     required
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    disabled={isLoading}
                 />
 
                 <input
@@ -42,9 +47,16 @@ const Login = () => {
                     placeholder="Password"
                     required
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    disabled={isLoading}
                 />
 
-                <button type="submit" className="btn-submit">Sign In</button>
+                <button
+                    type="submit"
+                    className={`btn-submit ${isLoading ? 'loading' : ''}`}
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Signing In...' : 'Sign In'}
+                </button>
 
                 <p className="navigate-text">
                     New here? <Link to="/signup" className="link-text">Create Account</Link>

@@ -3,17 +3,22 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'Annotator' });
+    const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'Member' });
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             await API.post('/auth/signup', formData);
             alert("Registration successful!");
             navigate('/');
         } catch (err) {
             alert(err.response?.data?.message || "Signup Failed");
+        }finally {
+            // Success ho ya error, loading ko false karein
+            setIsLoading(false);
         }
     };
 
@@ -33,23 +38,32 @@ const Signup = () => {
                 <input
                     type="text" placeholder="Full Name" required
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    disabled={isLoading}
                 />
                 <input
                     type="email" placeholder="Email" required
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    disabled={isLoading}
                 />
                 <input
                     type="password" placeholder="Password " required
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    disabled={isLoading}
                 />
 
                 <label className="field-label">Specialization Role:</label>
-                <select onChange={(e) => setFormData({ ...formData, role: e.target.value })}>
-                    <option value="Annotator">Membar</option>
+                <select onChange={(e) => setFormData({ ...formData, role: e.target.value })} disabled={isLoading}>
+                    <option value="Annotator">Member</option>
                     <option value="Admin"> Admin</option>
                 </select>
 
-                <button type="submit" className="btn-submit">Register</button>
+                <button
+                    type="submit"
+                    className={`btn-submit ${isLoading ? 'loading' : ''}`}
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Creating Account...' : 'Register'}
+                </button>
 
                 <p className="navigate-text">
                     Already a member? <Link to="/" className="link-text">Login to Workspace</Link>

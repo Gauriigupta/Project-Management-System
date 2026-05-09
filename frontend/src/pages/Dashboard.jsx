@@ -13,15 +13,15 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('userInfo'));
 
-    // Data Fetch karne ka function
+  
     const fetchDashboardData = async () => {
         try {
             setLoading(true);
-            // 1. Projects Fetch karo
+            
             const { data: projectData } = await API.get('/projects');
             setProjects(projectData);
 
-            // 2. Stats Fetch karo (Jo tune backend mein banaya tha)
+            
             const { data: statsData } = await API.get('/tasks/stats');
             setStats(statsData);
 
@@ -52,7 +52,7 @@ const Dashboard = () => {
         if (window.confirm("Are you sure? This will delete the project and all its tasks!")) {
             try {
                 await API.delete(`/projects/${projectId}`);
-                fetchDashboardData(); // List refresh karo
+                fetchDashboardData(); 
             } catch (err) {
                 alert("Delete failed");
             }
@@ -64,7 +64,7 @@ const Dashboard = () => {
         <div className="dashboard-wrapper">
             {/* Navbar Section */}
             <nav className="dashboard-nav">
-                <div className="logo">TaskMaster PRO</div>
+                <div className="logo">Ethara Ops Portal</div>
                 <div className="user-actions">
                     <div className="user-info">
                         <strong>{user.name}</strong>
