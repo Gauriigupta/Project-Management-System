@@ -85,15 +85,29 @@ exports.deleteTask = async (req, res) => {
     }
 };
 
-// Task Update karne ke liye (Title, Desc, etc.)
+
 exports.updateTask = async (req, res) => {
     try {
-        const updatedTask = await Task.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        res.json(updatedTask);
+        const { assignedToEmail, ...otherData } = req.body;
+        let updateData = { ...otherData };
+
+        if (assignedToEmail) {
+            const user = await User.findOne({ email: assignedToEmail });
+            if (!user) return res.status(404).json({ message: "Researcher not found" });
+            const updatedTask = await Task.findByIdAndUpdate(
+                req.params.id,
+                {
+                    ...updateData,
+                    $addToSet: { assignedTo: user._id }
+                },
+                { new: true }
+            ).populate('assignedTo', 'name email');
+
+            return res.json(updatedTask);
+        }
+        const task = await Task.findByIdAndUpdate(req.params.id, updateData, { new: true })
+            .populate('assignedTo', 'name email');
+        res.json(task);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

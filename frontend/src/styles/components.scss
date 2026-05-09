@@ -1,118 +1,256 @@
 @import 'variables';
 
 .task-view-container {
-    padding: 2rem 5%;
-    background-color: $bg-light;
+    padding: 2.5rem 5%;
+    background: #f8fafc; // Clean research lab white/grey bg
     min-height: 100vh;
 
     .task-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid #e2e8f0;
-        padding-bottom: 1rem;
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 1.5rem;
 
-        h1 {
-            color: $secondary-color;
-            font-size: 1.8rem;
+        .header-left {
+            h1 {
+                color: #1e293b;
+                font-size: 2rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+
+            p {
+                color: #64748b;
+                font-size: 1rem;
+            }
         }
 
-        .btn-primary {
-            background: $primary-color;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
+        .header-actions {
+            display: flex;
+            gap: 12px;
+
+            button {
+                padding: 0.7rem 1.4rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .btn-secondary {
+                background: white;
+                border: 1px solid #cbd5e1;
+                color: #475569;
+
+                &:hover {
+                    background: #f1f5f9;
+                }
+            }
+
+            .btn-primary {
+                background: $primary-color;
+                border: none;
+                color: white;
+                box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+
+                &:hover {
+                    transform: translateY(-1px);
+                    opacity: 0.9;
+                }
+            }
         }
     }
 
     .task-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 20px;
     }
 
     .task-card {
         background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: $shadow;
-        border-left: 6px solid $primary-color;
+        border-radius: 14px;
+        padding: 1.8rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        border-left: 6px solid #cbd5e1;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
 
-        &.Completed {
-            border-left-color: $success-color;
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        // Status specific borders
+        &.To-do {
+            border-left-color: #94a3b8;
         }
 
         &.In-Progress {
             border-left-color: #f59e0b;
         }
 
-        h3 {
-            margin-bottom: 0.5rem;
-            color: $secondary-color;
+        &.Completed {
+            border-left-color: #10b981;
         }
 
-        p {
-            color: $text-muted;
-            font-size: 0.9rem;
+        .task-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 1.2rem;
+
+            .title-section {
+                h3 {
+                    font-size: 1.2rem;
+                    color: #0f172a;
+                    font-weight: 700;
+                    margin-bottom: 6px;
+                }
+
+                .researcher-badge {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 0.85rem;
+                    color: #64748b;
+
+                    strong {
+                        color: $primary-color;
+                        font-weight: 700;
+                    }
+
+                    .icon {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+
+            .admin-actions {
+                display: flex;
+                gap: 8px;
+
+                .btn-icon {
+                    background: #f1f5f9;
+                    border: none;
+                    padding: 6px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    transition: 0.2s;
+
+                    &:hover {
+                        background: #e2e8f0;
+                    }
+
+                    &.delete:hover {
+                        background: #fee2e2;
+                    }
+                }
+            }
         }
 
-        .task-meta {
+        .task-description {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+            min-height: 48px;
+        }
+
+        .task-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            padding-top: 1.2rem;
             border-top: 1px solid #f1f5f9;
 
-            select {
-                padding: 0.4rem;
-                border-radius: 4px;
-                border: 1px solid #cbd5e1;
-                font-size: 0.8rem;
-                outline: none;
-                cursor: pointer;
+            .status-box {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label {
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    font-weight: 800;
+                    color: #94a3b8;
+                }
+
+                .status-dropdown {
+                    padding: 6px 12px;
+                    border-radius: 8px;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    border: 1px solid #e2e8f0;
+                    cursor: pointer;
+                    outline: none;
+
+                    &.Completed {
+                        color: #059669;
+                        background: #ecfdf5;
+                        border-color: #b91c1c00;
+                    }
+
+                    &.In-Progress {
+                        color: #d97706;
+                        background: #fffbeb;
+                        border-color: #b91c1c00;
+                    }
+
+                    &.To-do {
+                        color: #475569;
+                        background: #f8fafc;
+                    }
+                }
             }
 
-            .due-date {
-                font-size: 0.75rem;
-                color: $danger-color;
-                font-weight: 600;
+            .due-info {
+                text-align: right;
+
+                .due-label {
+                    display: block;
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    font-weight: 800;
+                    color: #94a3b8;
+                    margin-bottom: 2px;
+                }
+
+                .due-date {
+                    font-size: 0.9rem;
+                    color: #ef4444;
+                    font-weight: 800;
+                }
             }
         }
     }
 }
 
-.task-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
+// Empty state styling
+.empty-tasks {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 5rem;
+    background: white;
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    color: #64748b;
+}
+.members-list {
+    display: inline-block;
+    margin-left: 5px;
 
-    .admin-actions {
-        display: flex;
-        gap: 8px;
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            padding: 2px;
-            border-radius: 4px;
-            transition: background 0.2s;
-
-            &:hover {
-                background: #f1f5f9;
-            }
-        }
-
-        .btn-delete-sm:hover {
-            background: #fee2e2;
-        }
+    .member-name-tag {
+        background: #e0f2fe; // Light blue
+        color: #0369a1;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 4px;
+        display: inline-block;
     }
 }
